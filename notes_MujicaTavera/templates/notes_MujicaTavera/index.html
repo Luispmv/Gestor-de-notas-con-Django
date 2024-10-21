@@ -1,9 +1,27 @@
 {% if notas %}
 <ul>
     {% for nota in notas %}
-    <li><a href="{% url 'notes_MujicaTavera:detail' nota.id%}">{{nota.title}}</a></li>
+    <li><a href="{% url 'notes_MujicaTavera:individual' nota.id %}">{{nota.title}}</a></li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No hay notas disponibles</p>
 {% endif %}
+
+<!-- <style>
+    div{
+        background-color: blueviolet;
+    }
+</style>
+<div>
+    {% if notas %}
+    <ul>
+        {% for nota in notas %}
+        <li><a href="{% url 'notes_MujicaTavera:index' %}">{{nota.title}}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hay notas disponibles</p>
+    {% endif %}
+    
+</div> -->
