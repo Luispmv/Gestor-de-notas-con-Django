@@ -1,4 +1,4 @@
-<h1>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h1>
+<!-- <h1>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h1>
 <form method="post">
     {% csrf_token %}
     <label for="title">Título:</label>
@@ -8,4 +8,96 @@
     <textarea name="content" id="content">{{ note.content|default_if_none:'' }}</textarea>
     
     <button type="submit">{% if note %}Actualizar{% else %}Crear{% endif %}</button>
-</form>
+</form> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            background-color: #003f7f;
+        }
+    </style>
+</head>
+<body>
+    <h1>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Título:</label>
+        <input type="text" name="title" id="title" value="{{ note.title|default_if_none:'' }}">
+        
+        <label for="content">Contenido:</label>
+        <textarea name="content" id="content">{{ note.content|default_if_none:'' }}</textarea>
+        
+        <button type="submit">{% if note %}Actualizar{% else %}Crear{% endif %}</button>
+    </form>
+</body>
+</html>
