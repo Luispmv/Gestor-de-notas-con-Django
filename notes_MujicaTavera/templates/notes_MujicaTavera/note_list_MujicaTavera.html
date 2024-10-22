@@ -3,31 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Notas</title>
+    <title>Lista de Notas - Mourotech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        
+        /* Estilos generales */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        li {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        li:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: #f1c40f;
+        }
+
+        a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #f1c40f;
+            bottom: -6px;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Estilo del botón */
+        button, a.button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.4s ease;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        button:hover, a.button:hover {
+            background-color: #16a085;
+            transform: translateY(-5px);
+        }
+
+        form {
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Notas del Usuario: {{ username }}</h1>
-        
-        <ul>
-        {% for note in notes %}
-            <li>
-                <a href="{% url 'notes_MujicaTavera:detail' note.pk %}">{{ note.title }}</a>
-            </li>
-        {% empty %}
-            <li>No hay notas disponibles.</li>
-        {% endfor %}
-        </ul>
+    <h1>Notas del Usuario: {{ username }}</h1>
+    
+    <ul>
+    {% for note in notes %}
+        <li>
+            <a href="{% url 'notes_MujicaTavera:detail' note.pk %}">{{ note.title }}</a>
+        </li>
+    {% empty %}
+        <li>No hay notas disponibles.</li>
+    {% endfor %}
+    </ul>
 
-        <a href="{% url 'notes_MujicaTavera:create' %}">Crear nueva nota</a>
+    <a href="{% url 'notes_MujicaTavera:create' %}" class="button">Crear nueva nota</a>
 
-        <form action="{% url 'notes_MujicaTavera:change_user' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">Cambiar Usuario</button>
-        </form>
-    </div>
+    <!-- Botón para cambiar el usuario aleatorio -->
+    <form action="{% url 'notes_MujicaTavera:change_user' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Cambiar Usuario</button>
+    </form>
 </body>
 </html>
