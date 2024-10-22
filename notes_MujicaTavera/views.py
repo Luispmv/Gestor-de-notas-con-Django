@@ -16,11 +16,14 @@ def list(request):
     random_user_id = request.session.get('random_user_id', get_random_user_id())
     # Guardamos el ID en la sesión si es la primera vez
     request.session['random_user_id'] = random_user_id
-
+    # Obtenemos el usuario basado en el ID
+    user = get_object_or_404(User, id=random_user_id)
     # Filtramos las notas por el usuario aleatorio
     notes = Note.objects.filter(user_id=random_user_id)
+    # Pasamos tanto el username como las notas al contexto
     return render(request, "notes_MujicaTavera/note_list_MujicaTavera.html",
-                  {'notes': notes, 'user_id': random_user_id})
+                  {'notes': notes, 'username': user.username})
+
 
 
 def change_user(request):
@@ -65,6 +68,9 @@ def delete(request, pk):
     note = get_object_or_404(Note, pk=pk, user_id=random_user_id)
 
     if request.method == "POST":
-        note.delete()
-        return redirect('notes_MujicaTavera:list')
-    return render(request, "notes_MujicaTavera/note_delete_MujicaTavera.html", {'note': note})
+        note.delete()  # Elimina la nota directamente
+        return redirect('notes_MujicaTavera:list')  # Redirige a la lista de notas
+
+    # Si se accede por GET, redirigir directamente a la lista de notas
+    return redirect('notes_MujicaTavera:list')
+
