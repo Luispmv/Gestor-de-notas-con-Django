@@ -6,7 +6,9 @@
     <title>{{ nota.title }}</title>
 </head>
 <body>
-    <h1>{{ nota.title }}</h1>
-    <p>{{ nota.content }}</p>
+<h1>{{ note.title }}</h1>
+<p>{{ note.content }}</p>
+<a href="{% url 'notes_MujicaTavera:edit' note.pk %}">Editar</a>
+<a href="{% url 'notes_MujicaTavera:delete' note.pk %}">Eliminar</a>
 </body>
 </html>

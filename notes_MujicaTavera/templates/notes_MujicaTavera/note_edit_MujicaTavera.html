@@ -1,0 +1,11 @@
+<h1>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Título:</label>
+    <input type="text" name="title" id="title" value="{{ note.title|default_if_none:'' }}">
+    
+    <label for="content">Contenido:</label>
+    <textarea name="content" id="content">{{ note.content|default_if_none:'' }}</textarea>
+    
+    <button type="submit">{% if note %}Actualizar{% else %}Crear{% endif %}</button>
+</form>
