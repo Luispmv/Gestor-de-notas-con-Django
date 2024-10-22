@@ -1,12 +1,13 @@
 from django.urls import path
 from . import views
 
-app_name = "notes_MujicaTavera"
+app_name = 'notes_MujicaTavera'
 
 urlpatterns = [
-    # 127.0.0.1:8000/notes_MujicaTavera/
-    path("", views.index, name="index"),
-
-    # mostrar nota individual
-    path("<int:nota_id>/", views.individual, name="individual")
+    path('', views.list, name='list'),  # Lista de notas
+    path('<int:pk>/', views.detail, name='detail'),  # Detalle de una nota
+    path('new/', views.create, name='create'),  # Crear nota
+    path('<int:pk>/edit/', views.edit, name='edit'),  # Editar nota
+    path('<int:pk>/delete/', views.delete, name='delete'),  # Eliminar nota
+    path('change_user/', views.change_user, name='change_user'),  # Cambiar usuario aleatorio
 ]

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Notas</title>
+</head>
+<body>
+    <h1>Notas del Usuario ID: {{ user_id }}</h1>
+    
+    <ul>
+    {% for note in notes %}
+        <li>
+            <a href="{% url 'notes_MujicaTavera:detail' note.pk %}">{{ note.title }}</a>
+        </li>
+    {% empty %}
+        <li>No hay notas disponibles.</li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'notes_MujicaTavera:create' %}">Crear nueva nota</a>
+
+    <!-- Botón para cambiar el usuario aleatorio (recarga la misma página) -->
+    <form action="{% url 'notes_MujicaTavera:change_user' %}" method="POST" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit">Cambiar Usuario</button>
+    </form>
+</body>
+</html>
